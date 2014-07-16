@@ -1,0 +1,20 @@
+<div class="modal-header">
+	<h3 class="modal-title">
+		There was an unexpected error.
+	</h3>
+</div>
+<div class="modal-body">
+	<h3>
+		Issue: <small>{{error.Message}}</small>
+	</h3>
+	<hr>
+	<button class="btn btn-default" ng-click="showDetails = !showDetails"> Show / hide Details </button>
+	<hr>
+	<div ng-show="showDetails" class="highlight">
+		<div class="header-highlight">Error Details:</div>
+		<div class="content-highlight">{{error.Info}}</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-default" ng-click="close()"> Close </button>
+</div>

@@ -1,0 +1,19 @@
+{
+	"login": {
+		"username": "",
+		"password": ""
+	},
+	"states": ["Array of string values for accepted states"],
+	"youtrack": {
+		"host": "hostname only, no http:// prefix etc",
+		"port": "",
+		"loginUrl": "",
+		"issueUrl": "",
+		"releaseVersionUrl": ""
+	},
+	"app":{
+		"port":"port to run portal on",
+		"viewsLoc": "location of views directory, relative to the application entry point",
+		"publicLoc": "location of public directory, relative to the application entry point"
+	}
+}

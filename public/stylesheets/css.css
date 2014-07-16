@@ -1,0 +1,62 @@
+.item{
+	background-color: white;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-style: solid;
+	border-color: #dddddd;
+}
+
+.highlight {
+	margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #e1e1e8;
+}
+.header-highlight {
+	padding:5px;
+	background-color: white;
+    background-color: #f7f7f9;
+    border-bottom: 1px solid #e1e1e8;
+}
+.content-highlight {
+	padding: 5px;
+	background-color: white;
+    white-space: pre-line;
+}
+
+
+.thin{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.panel-body{
+	overflow: auto;
+}
+
+.subsystem{
+    border-left: 1px solid #e1e1e8;
+}
+
+.label-released{
+	background-color: #339933;
+	font-size: 12px;
+    border: 1px solid #e1e1e8;
+}
+.label-complete{
+	background-color: #bef624;
+	color: black;
+	font-size: 12px;
+    border: 1px solid #e1e1e8;
+}
+.label-review{
+	background-color: #d9ffc8;
+	color: black;
+    border: 1px solid #e1e1e8;
+    font-size: 12px;
+}
+.label-merged,.label-integration{
+	background-color: #ffc600;
+	color: black;
+	font-size: 12px;
+    border: 1px solid #e1e1e8;
+}

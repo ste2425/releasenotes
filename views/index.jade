@@ -1,0 +1,79 @@
+doctype html
+html
+  head
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(http-equiv="PRAGMA" content="NO-CACHE")
+    title Release Notes
+    link(rel="shortcut icon" href="images/Icon.ico")
+    link(rel='stylesheet', href='/stylesheets/bootstrap/bootstrap.css')
+    link(rel='stylesheet', href='/stylesheets/font-awesome/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/stylesheets/css.css')
+    script(src='js/lib/jquery/jquery.min.js').
+    script(src='js/JavascriptUtilities.js').
+    script(src='js/lib/angular/angular.js').
+    script(src='js/lib/angular/angular-route.js').
+    script(src='js/lib/bootstrap/bootstrap.js').
+    script(src='js/lib/bootstrap/bootstrapUI.js').
+    script(src='js/app.js').
+    script(src='js/controllers/controller.js').
+    script(src='js/services/youTrackService.js').
+    script(src='js/services/errorService.js').
+
+  body(ng-app='nodeApp')
+    div(id="container" class="container" style="width:95%;min-width:820px;")
+      div(class="row gradient" id="title" style="height:120px;")
+        div(class="span12" style="padding-bottom: 5px; padding-top:5px;")
+          h1
+            span(style="background:rgba(0,0,0,0.2); padding-bottom:2px; padding-top:19px; color: white; font-size: 53px; padding-right: 5px;") Release Notes
+      
+      div(ng-controller="nodeController")
+        div(id="navigation" class="row" style="padding-top:10px;")
+          div(class="span12")
+            nav(class="navbar navbar-default" role="navigation")
+              div(class="navbar-header")
+                span(class="navbar-brand") Release Versions
+              div(class="collapse navbar-collapse")
+                img(src="images/wait.gif" ng-show="releasesLoading")
+                ul(class="nav navbar-nav" id="navigationTabs")
+                  li(ng-repeat="version in ReleaseVersions" ng-model="selectedVersion" btn-radio="'{{version.value}}'")
+                    a(ng-click="selectRelease(version.value, 'ALL')") {{version.value}} {{version.releaseDateFormatted}}
+                .btn-group.pull-right(ng-show="selectedVersion.substring(0, selectedVersion.indexOf('.')) >= 5")
+                  button(ng-disabled="dataLoading" ng-model="itemType" btn-radio="'HR'" ng-click="showHide(selectedVersion,'HR')" class="btn btn-default") View HR
+                  button(ng-disabled="dataLoading" ng-model="itemType" btn-radio="'PY'" ng-click="showHide(selectedVersion,'PY')" class="btn btn-default") View Payroll
+                  button(ng-disabled="dataLoading" ng-model="itemType" btn-radio="'ALL'" ng-click="showHide(selectedVersion, 'ALL')" class="btn btn-default") View All
+
+        //noRecordsAll(object.details)
+        div(class="row")
+          div(style="overflow: auto;border-style:solid;border-color:rgb(221,221,221);border-width:1px;" id="mainTable")
+            img(src="images/wait.gif" ng-show="dataLoading")
+            table(class="table" style="margin:0px;")
+              tbody()
+                tr
+                  td(id="{{object.version}}")
+                    div(ng-show="false" style="text-align:center;margin:0 0 10px;border-style:solid;border-color:rgb(221,221,221);border-width:1px;background-color:rgb(245,245,245);width:100%;padding:10px;")
+                      h5(style="font-size:19px;display:inline" ) No Records Available.
+                    div
+                      accordion(close-others="true")
+                        accordion-group(ng-repeat="Display in displayItem" heading="{{Type}}" is-open="$first")
+                          accordion-heading()
+                            span( ng-click="open = !open")
+                              {{Display.Type}} 
+                              .badge {{Display.Count}}
+                              i.pull-right.fa(ng-class="{'fa-chevron-right': !$first, 'fa-chevron-down': $first}")
+                          div(class="Feature" ng-repeat="(Subsystem, Item) in Display.Subsystems" style="padding: 5px;margin: 7px 0px 7px 0px;")
+                            .row(class="dl-horizontal" style="margin:0px;")
+                              .col-md-1
+                                b(style="font-size:13px;") {{Subsystem}}
+                              .col-md-11.subsystem
+                                .highlight(ng-repeat="(type2,element2) in Item")
+                                  .header-highlight
+                                    .row
+                                      .col-md-1
+                                        a(target="_blank" href="http://youtrack:9111/issue/{{element2.id}}") {{element2.id}}
+                                      .col-md-9.subsystem
+                                        b(style="padding-left:10px;") {{element2.summary}}
+                                      .col-md-2.subsystem
+                                        .label.pull-right(ng-class="element2.state | buildLabel") {{element2.state}}
+                                  .content-highlight {{element2.description}}
+                            hr.thin
+                          div(ng-show="noRecords(Display.Subsystems)")  No Records    
