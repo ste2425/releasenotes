@@ -114,7 +114,12 @@ app.controller('nodeController', function($scope, $http, $route, $timeout, youTr
             } else {
                 $scope.dataObject = data.Data;
                 $scope.dataLoading = false;
-                $scope.selectRelease($scope.ReleaseVersions[0].value, 'ALL')
+                for(var i = $scope.ReleaseVersions.length -1; i >=0; i--){
+                    if($scope.ReleaseVersions[i].released){
+                        $scope.selectRelease($scope.ReleaseVersions[i].value, 'ALL');
+                        break;
+                    }
+                }
             }
         });
     }
